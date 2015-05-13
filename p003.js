@@ -15,59 +15,23 @@
 //            If there was no such number, stop. Otherwise, let p now equal
 //            this new number (which is the next prime), and repeat from step 3.
 
-// range() will create an array of numbers from 2 to n
-var range = function(begin, end) {
-  var result = [];
-  for (var i = begin; i <= end; i++) {
-    result.push(i);
-  }
-  return result;
-};
-
-// Sieve will find all prime numbers less than or equal to n
-var sieve = function(n) {
-  var candidates = range(2, n);
-  var p = 2;
-  var i = 0;
-  while (i < candidates.length) {
-
-    // possible candidates are ones that are not divisible by current p
-    // (or is p itself).
-    var remainingCandidates = candidates.slice(i).filter(function(num){
-      return num % p !== 0 || num === p;
-    });
-
-    // concat because the previous candidates are all less than our current
-    // prime value, which means they must be prime (since they weren't filtered
-    // out earlier).
-    candidates = candidates.slice(0, i).concat(remainingCandidates);
-
-    // Go to our next prime number.
-    p = candidates[++i];
-  }
-  return candidates;
-};
-
-var primeFactors = function(n) {
-  var potentialPrimeFactors = sieve(n);
-  var primes = [];
-  while (n !== 1) {
-    for (var i = 0; i < potentialPrimeFactors.length; i++) {
-      var cand = potentialPrimeFactors[i];
-      if (n % cand === 0) {
-        primes.push(cand);
-        n /= cand;
-        break;
-      }
+var isPrime = function(n) {
+  for (var i = 2; i <= Math.ceil(Math.sqrt(n)); i++) {
+    if (n % i === 0) {
+      return false;
     }
   }
-  // Return the prime factors
-  return primes;
+  return true;
 };
 
 var p3 = function(n) {
-  var factors = primeFactors(n);
-  return factors[factors.length - 1];
+  for (var i = n; i >= 2; i--) {
+    if (n % i === 0 && isPrime(i)) {
+      return i;
+    }
+  }
 };
 
 console.log(p3(600851475143));
+
+
