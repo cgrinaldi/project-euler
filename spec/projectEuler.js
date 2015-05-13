@@ -16,3 +16,11 @@ describe('Problem 2', function () {
     expect(p2(89)).to.equal(44);
   });
 });
+
+describe('Problem 3', function () {
+  'use strict';
+
+  it("should have the following answers", function() {
+    expect(p3(13195)).to.equal(29);
+  });
+});
